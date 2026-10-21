@@ -61,10 +61,12 @@
 /* 3D 實體卡牌翻轉與牌堆效果 */
 .perspective-1200 {
   perspective: 1200px;
+  -webkit-perspective: 1200px;
 }
 
 .preserve-3d {
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
 .backface-hidden {
@@ -72,8 +74,19 @@
   -webkit-backface-visibility: hidden;
 }
 
+.rotate-y-0 {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+}
+
 .rotate-y-180 {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+.-rotate-y-180 {
+  transform: rotateY(-180deg);
+  -webkit-transform: rotateY(-180deg);
 }
 
 /* 卡背微光流動效果 */

@@ -393,18 +393,14 @@ export default function App() {
               }`}
             />
 
-            {/* 最上方可翻轉的主卡牌容器（鎖定 h-full，正反面皆為 inset-0） */}
+            {/* 最上方可翻轉的主卡牌容器（鎖定 h-full，正反面獨立旋轉 + 透明度切換，完美相容手機瀏覽器） */}
             <div
               key={dealKey}
               className={`relative w-full h-full transition-all duration-300 animate-deck-deal ${
                 isTransitioning ? 'opacity-0 scale-95 translate-y-3' : 'opacity-100 scale-100 translate-y-0'
               }`}
             >
-              <div
-                className={`relative w-full h-full transition-transform duration-700 preserve-3d ${
-                  isRevealed ? 'rotate-y-180' : ''
-                }`}
-              >
+              <div className="relative w-full h-full perspective-1200">
                 {/* ================= 卡牌背面（未翻開時顯示，點擊即可翻牌） ================= */}
                 <div
                   onClick={() => !isRevealed && setIsRevealed(true)}
@@ -417,8 +413,10 @@ export default function App() {
                     }
                   }}
                   className={`absolute inset-0 w-full h-full ${
-                    isRevealed ? 'pointer-events-none' : 'pointer-events-auto'
-                  } rounded-3xl bg-gradient-to-b ${deckInfo.deckAccent} border-2 border-amber-300/35 shadow-[0_20px_50px_rgba(0,0,0,0.75)] p-4 flex flex-col justify-between cursor-pointer select-none overflow-hidden group hover:border-amber-300/60 hover:shadow-amber-500/15 transition-all duration-300 backface-hidden`}
+                    isRevealed
+                      ? 'rotate-y-180 opacity-0 invisible z-0 pointer-events-none'
+                      : 'rotate-y-0 opacity-100 visible z-20 pointer-events-auto'
+                  } rounded-3xl bg-gradient-to-b ${deckInfo.deckAccent} border-2 border-amber-300/35 shadow-[0_20px_50px_rgba(0,0,0,0.75)] p-4 flex flex-col justify-between cursor-pointer select-none overflow-hidden group hover:border-amber-300/60 hover:shadow-amber-500/15 transition-all duration-500 ease-in-out backface-hidden`}
                 >
                   {CUSTOM_CARD_BACK_IMAGE ? (
                     <img
@@ -432,7 +430,7 @@ export default function App() {
                       <div className="pointer-events-none absolute -inset-20 bg-gradient-to-tr from-transparent via-amber-200/10 to-transparent animate-shimmer" />
 
                       {/* 雙層燙金復古幾何內框 */}
-                      <div className="relative z-10 flex-1 w-full rounded-2xl border border-amber-300/30 p-2 flex flex-col justify-between bg-slate-950/40 backdrop-blur-sm">
+                      <div className="relative z-10 flex-1 w-full rounded-2xl border border-amber-300/30 p-2 flex flex-col justify-between bg-slate-950/60">
                         <div className="flex-1 w-full rounded-xl border border-amber-200/15 p-4 flex flex-col items-center justify-between relative overflow-hidden">
                           
                           {/* 四角星芒雕花裝飾 */}
@@ -512,8 +510,10 @@ export default function App() {
                 {/* ================= 卡牌正面（固定外框高度，內容過長時於卡片內滑動） ================= */}
                 <div
                   className={`absolute inset-0 w-full h-full ${
-                    isRevealed ? 'pointer-events-auto' : 'pointer-events-none'
-                  } rounded-3xl bg-slate-900/95 backdrop-blur-xl border border-amber-200/25 shadow-[0_20px_50px_rgba(0,0,0,0.75)] p-4 sm:p-5 flex flex-col overflow-hidden rotate-y-180 backface-hidden`}
+                    isRevealed
+                      ? 'rotate-y-0 opacity-100 z-20 pointer-events-auto'
+                      : '-rotate-y-180 opacity-0 z-0 pointer-events-none'
+                  } rounded-3xl bg-slate-900 border border-amber-200/25 shadow-[0_20px_50px_rgba(0,0,0,0.75)] p-4 sm:p-5 flex flex-col overflow-hidden transition-all duration-500 ease-in-out backface-hidden`}
                 >
                   {/* 卡片固定頂部列：類型、編號、標題、蓋回牌背按鈕 */}
                   <div className="shrink-0 pb-2.5 border-b border-white/10">
