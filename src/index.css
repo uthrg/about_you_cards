@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background-color: #090d16;
+    overflow-x: hidden;
+  }
+
+  .font-serif-tc {
+    font-family: 'Noto Serif TC', serif;
+  }
+}
+
+/* 柔和的星空閃爍微動畫 */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.animate-star {
+  animation: pulse-slow 6s infinite ease-in-out;
+}
+
+/* 質感暗夜星空細卷軸 */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(251, 191, 36, 0.28) rgba(255, 255, 255, 0.04);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.25), rgba(251, 191, 36, 0.45));
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.45), rgba(251, 191, 36, 0.7));
+}
+
+/* 隱藏卷軸工具類（備用） */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 3D 實體卡牌翻轉與牌堆效果 */
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* 卡背微光流動效果 */
+@keyframes shimmer-slow {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translateX(-20%) translateY(-10%) rotate(25deg);
+  }
+  50% {
+    opacity: 0.35;
+    transform: translateX(20%) translateY(10%) rotate(25deg);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer-slow 7s infinite ease-in-out;
+}
+
+/* 牌堆抽換洗牌微動畫 */
+@keyframes deck-deal {
+  0% {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.94) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.animate-deck-deal {
+  animation: deck-deal 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
